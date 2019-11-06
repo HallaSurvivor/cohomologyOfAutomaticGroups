@@ -35,7 +35,21 @@
 \renewcommand{\projlim}{\varprojlim}
 
 \begin{document}
-  \section{Intro}
+
+\begin{abstract}
+  The standard addition algorithm in $\Z$ gives a way of effectively
+  computing the group operation by looking at only one digit at a time.
+  Automata theoretically, this can be computed by a 2 state transducer,
+  with one state for ``carrying'' and one state for ``not carrying''. 
+  However, we can also view this as a cohomological phenomenon, where
+  each sum takes place in $\Z/10$, with some interaction governed by
+  a 2-cocycle. In this paper we flesh out this extension, and give
+  automata for computing the group operation in limits of group extnsions.
+  Additionally, we conjecture that every automatic group is a subgroup
+  of a limit of group extensions.
+\end{abstract}
+
+\section{Introduction}
 
   This entire project came about from trying to generalize the standard
   algorithm for addition in $\Z$. We work one column at a time, and 
@@ -47,8 +61,8 @@
   The \emph{automatic} interpretation is that addition in $\Z$ can be 
   computed using a \textbf{Finite State Automaton} (shown below). This is
   a fairly powerful requirement, as it says that addition in $\Z$ is 
-  essentially as easy as addition in $\Z / 10$. We only have to remember
-  one piece of information at a time (namely what we are carrying).
+  essentially as easy as addition in $\Z / 2$. We only have to remember
+  one piece of information at a time (namely what we are carrying). 
 
   \begin{center}
     \begin{tikzpicture}[scale=0.2]
@@ -59,31 +73,33 @@
     \draw (35.7,-28.3) node {$1$};
     \draw [black] (33.85,-30.649) arc (-46.30625:-133.69375:10.639);
     \fill [black] (33.85,-30.65) -- (32.93,-30.84) -- (33.62,-31.56);
-    \draw (26.5,-34.1) node [below] {$1/1/1$};
+    \draw (26.5,-34.1) node [below] {$(1,1)/1$};
     \draw [black] (38.38,-26.977) arc (144:-144:2.25);
-    \draw (42.95,-28.3) node [right] {$1/0/0$};
+    \draw (42.95,-28.3) node [right] {$(1,0)/0$};
     \fill [black] (38.38,-29.62) -- (38.73,-30.5) -- (39.32,-29.69);
     \draw [black] (14.62,-29.623) arc (324:36:2.25);
-    \draw (10.05,-28.3) node [left] {$1/0/1$};
+    \draw (10.05,-28.3) node [left] {$(1,0)/1$};
     \fill [black] (14.62,-26.98) -- (14.27,-26.1) -- (13.68,-26.91);
     \draw [black] (15.977,-25.62) arc (234:-54:2.25);
-    \draw (17.3,-21.05) node [above] {$0/0/0$};
+    \draw (17.3,-21.05) node [above] {$(0,0)/0$};
     \fill [black] (18.62,-25.62) -- (19.5,-25.27) -- (18.69,-24.68);
     \draw [black] (18.623,-30.98) arc (54:-234:2.25);
-    \draw (17.3,-35.55) node [below] {$0/1/1$};
+    \draw (17.3,-35.55) node [below] {$(0,1)/1$};
     \fill [black] (15.98,-30.98) -- (15.1,-31.33) -- (15.91,-31.92);
     \draw [black] (19.445,-26.214) arc (126.88367:53.11633:11.754);
     \fill [black] (19.45,-26.21) -- (20.39,-26.13) -- (19.78,-25.33);
-    \draw (26.5,-23.36) node [above] {$0/0/1$};
+    \draw (26.5,-23.36) node [above] {$(0,0)/1$};
     \draw [black] (37.023,-30.98) arc (54:-234:2.25);
-    \draw (35.7,-35.55) node [below] {$0/1/0$};
+    \draw (35.7,-35.55) node [below] {$(0,1)/0$};
     \fill [black] (34.38,-30.98) -- (33.5,-31.33) -- (34.31,-31.92);
     \draw [black] (34.377,-25.62) arc (234:-54:2.25);
-    \draw (35.7,-21.05) node [above] {$1/1/1$};
+    \draw (35.7,-21.05) node [above] {$(1,1)/1$};
     \fill [black] (37.02,-25.62) -- (37.9,-25.27) -- (37.09,-24.68);
     \end{tikzpicture}
   \end{center}
-  Here an edge from $p$ to $q$ labelled $a / b / c$ to mean that, 
+
+  \nonindent
+  Here an edge from $p$ to $q$ labelled $(a,b)/c$ to mean that, 
   given inputs $a$ and $b$, while in state $p$, we should output $c$
   and transition to $q$. Intuitively, the states correspond to what we 
   are currently carrying.  It is clear that this machine does actually
@@ -110,6 +126,8 @@
   This perspective then lets us write addition in $\Z$ as the limit of 
   addition in each of these approximations. Formally $\Z$ is the 
   ``finite-support subgroup'' in the projective limit $\projlim \Z / 10^n$.
+  That is, the subgroup of $\projlim \Z / 10^n$ with cofinitely many $0$s
+  or $9$s.
 
   \bigskip
 
@@ -352,12 +370,12 @@
   $x,y \in \Gamma^\omega$ by simply ignoring the base case in the above
   construction.
 
-  Note: this is \emph{note} the most general notion of automata considered
+  Note: this is \emph{not} the most general notion of automata considered
   in the literature. Our set of states $\Gamma$ is the same as our set of
   letters, but this needs not be the case! Additionally, 
   it is extremely unclear which automata compute a function obeying the 
   group laws. It seems characterizing the machines giving rise to groups is
-  too difficult a problem to tackle in the time we have.
+  a very difficult a problem to tackle.
 
   \bigskip
 
